@@ -1,0 +1,16 @@
+# Dependencies and build output
+admin/node_modules/
+admin/dist/
+server/node_modules/
+server/dist/
+
+# Local configuration and secrets
+**/.env
+**/.env.*
+!**/.env.example
+
+# Local caches and editor files
+admin/.tanstack/
+admin/.vscode/
+*.log
+*.tsbuildinfo

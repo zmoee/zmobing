@@ -1,11 +1,9 @@
 import * as React from 'react'
-import { ChevronsUpDown, Plus } from 'lucide-react'
+import { ChevronsUpDown } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -27,6 +25,14 @@ type TeamSwitcherProps = {
 export function TeamSwitcher({ teams }: TeamSwitcherProps) {
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const version = import.meta.env.VITE_APP_VERSION || '本地开发版'
+  const releaseTime = import.meta.env.VITE_RELEASE_TIME || '未发布'
+  const formattedReleaseTime = React.useMemo(() => {
+    const date = new Date(releaseTime)
+    if (Number.isNaN(date.getTime())) return releaseTime
+    const pad = (value: number) => String(value).padStart(2, '0')
+    return `${String(date.getFullYear()).slice(-2)}/${pad(date.getMonth() + 1)}/${pad(date.getDate())}/${pad(date.getHours())}:${pad(date.getMinutes())}`
+  }, [releaseTime])
   const version = import.meta.env.VITE_APP_VERSION || '本地开发版'
   const releaseTime = import.meta.env.VITE_RELEASE_TIME || '未发布'
 

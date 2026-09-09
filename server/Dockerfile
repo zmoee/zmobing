@@ -5,6 +5,7 @@ RUN npm install
 COPY prisma ./prisma
 COPY prisma.config.ts nest-cli.json tsconfig*.json ./
 COPY src ./src
+ENV DATABASE_URL=mysql://zmobl:build-only@db:3306/zmobl
 RUN npx prisma generate
 RUN npm run build
 

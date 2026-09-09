@@ -1,5 +1,6 @@
 FROM node:20-alpine AS build
 WORKDIR /app
+ENV NPM_CONFIG_REGISTRY=https://registry.npmmirror.com
 COPY package*.json ./
 RUN npm install
 COPY . .

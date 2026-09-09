@@ -30,6 +30,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          command_timeout: 30m
           script: |
             cd /var/www/zmobing
             docker compose up -d --build --remove-orphans

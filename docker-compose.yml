@@ -39,6 +39,8 @@ services:
       context: ./admin
       args:
         VITE_API_URL: /api
+        VITE_APP_VERSION: ${VITE_APP_VERSION:-本地开发版}
+        VITE_RELEASE_TIME: ${VITE_RELEASE_TIME:-未发布}
     restart: unless-stopped
     depends_on:
       - server

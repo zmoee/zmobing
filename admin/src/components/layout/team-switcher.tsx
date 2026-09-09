@@ -27,6 +27,8 @@ type TeamSwitcherProps = {
 export function TeamSwitcher({ teams }: TeamSwitcherProps) {
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const version = import.meta.env.VITE_APP_VERSION || '本地开发版'
+  const releaseTime = import.meta.env.VITE_RELEASE_TIME || '未发布'
 
   return (
     <SidebarMenu>
@@ -44,9 +46,6 @@ export function TeamSwitcher({ teams }: TeamSwitcherProps) {
                 <span className='truncate font-semibold'>
                   {activeTeam.name}
                 </span>
-                {activeTeam.plan && (
-                  <span className='truncate text-xs'>{activeTeam.plan}</span>
-                )}
               </div>
               <ChevronsUpDown className='ms-auto' />
             </SidebarMenuButton>
@@ -71,11 +70,8 @@ export function TeamSwitcher({ teams }: TeamSwitcherProps) {
                 </div>
                 <div className='grid flex-1 text-start leading-tight'>
                   <span>{team.name}</span>
-                  {team.plan && (
-                    <span className='text-xs text-muted-foreground'>
-                      {team.plan}
-                    </span>
-                  )}
+                  <span className='text-xs text-muted-foreground'>版本 {version}</span>
+                  <span className='text-xs text-muted-foreground'>上传于 {releaseTime}</span>
                 </div>
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>

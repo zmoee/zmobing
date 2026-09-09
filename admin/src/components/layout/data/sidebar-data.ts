@@ -14,7 +14,7 @@ import {
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
-  teams: [{ name: '周末病历系统', logo: Command, plan: '版本 d973219' }],
+  teams: [{ name: '周末病历系统', logo: Command, plan: '' }],
   navGroups: [
     {
       title: '主要功能',

@@ -69,7 +69,14 @@ export function TeamSwitcher({ teams }: TeamSwitcherProps) {
                 <div className='flex size-6 items-center justify-center rounded-sm border'>
                   <team.logo className='size-4 shrink-0' />
                 </div>
-                {team.name}
+                <div className='grid flex-1 text-start leading-tight'>
+                  <span>{team.name}</span>
+                  {team.plan && (
+                    <span className='text-xs text-muted-foreground'>
+                      {team.plan}
+                    </span>
+                  )}
+                </div>
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}

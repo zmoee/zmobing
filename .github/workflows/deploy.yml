@@ -1,4 +1,4 @@
-name: 自动部署
+name: Deploy
 
 on:
   push:
@@ -9,10 +9,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: 检出代码
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 上传项目到服务器
+      - name: Upload project
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -23,8 +23,11 @@ jobs:
           target: "/var/www/zmobing"
           overwrite: true
 
-      - name: 构建并重启服务
+      - name: Build and restart services
         uses: appleboy/ssh-action@v1
+        env:
+          APP_VERSION: ${{ github.sha }}
+          RELEASE_TIME: ${{ github.event.head_commit.timestamp }}
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -32,9 +35,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           command_timeout: 30m
           envs: APP_VERSION,RELEASE_TIME
-          env:
-            APP_VERSION: ${{ github.sha }}
-            RELEASE_TIME: ${{ github.event.head_commit.timestamp }}
           script: |
             cd /var/www/zmobing
             export VITE_APP_VERSION="${APP_VERSION:0:7}"

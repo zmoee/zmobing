@@ -33,8 +33,6 @@ export function TeamSwitcher({ teams }: TeamSwitcherProps) {
     const pad = (value: number) => String(value).padStart(2, '0')
     return `${String(date.getFullYear()).slice(-2)}/${pad(date.getMonth() + 1)}/${pad(date.getDate())}/${pad(date.getHours())}:${pad(date.getMinutes())}`
   }, [releaseTime])
-  const version = import.meta.env.VITE_APP_VERSION || '本地开发版'
-  const releaseTime = import.meta.env.VITE_RELEASE_TIME || '未发布'
 
   return (
     <SidebarMenu>
@@ -49,9 +47,7 @@ export function TeamSwitcher({ teams }: TeamSwitcherProps) {
                 <activeTeam.logo className='size-4' />
               </div>
               <div className='grid flex-1 text-start text-sm leading-tight'>
-                <span className='truncate font-semibold'>
-                  {activeTeam.name}
-                </span>
+                <span className='truncate font-semibold'>{activeTeam.name}</span>
               </div>
               <ChevronsUpDown className='ms-auto' />
             </SidebarMenuButton>
@@ -62,9 +58,6 @@ export function TeamSwitcher({ teams }: TeamSwitcherProps) {
             side={isMobile ? 'bottom' : 'right'}
             sideOffset={4}
           >
-            <DropdownMenuLabel className='text-xs text-muted-foreground'>
-              工作区
-            </DropdownMenuLabel>
             {teams.map((team, index) => (
               <DropdownMenuItem
                 key={team.name}
@@ -74,23 +67,17 @@ export function TeamSwitcher({ teams }: TeamSwitcherProps) {
                 <div className='flex size-6 items-center justify-center rounded-sm border'>
                   <team.logo className='size-4 shrink-0' />
                 </div>
-                <div className='grid flex-1 text-start leading-tight'>
-                  <span>{team.name}</span>
-                  <span className='text-xs text-muted-foreground'>版本 {version}</span>
-                  <span className='text-xs text-muted-foreground'>上传于 {releaseTime}</span>
+                <div className='grid min-w-0 flex-1 text-start leading-tight'>
+                  <span className='truncate text-xs text-muted-foreground'>
+                    版本 {version}
+                  </span>
+                  <span className='truncate text-xs text-muted-foreground'>
+                    上传于 {formattedReleaseTime}
+                  </span>
                 </div>
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className='gap-2 p-2'>
-              <div className='flex size-6 items-center justify-center rounded-md border bg-background'>
-                <Plus className='size-4' />
-              </div>
-              <div className='font-medium text-muted-foreground'>
-                添加工作区
-              </div>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
